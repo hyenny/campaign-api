@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
@@ -24,11 +25,11 @@ public class ValueConsumptionCreateRequest {
     @NotBlank(message = "[개설자]을 입력해 주세요")
     private String beneficiary;
 
-    @NotBlank(message = "[시작일]을 입력해 주세요")
+    @NotNull(message = "[시작일]을 입력해 주세요")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime startDate;
 
-    @NotBlank(message = "[종료일]을 입력해 주세요")
+    @NotNull(message = "[종료일]을 입력해 주세요")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime endDate;
 
