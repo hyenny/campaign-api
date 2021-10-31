@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -52,6 +53,10 @@ public class ValueConsumption {
 
     @Builder
     public ValueConsumption(LocalDateTime startDate, LocalDateTime endDate, String title, String notice, String howToPractice, String reward, String purchaseUrl, String imagePath, LocalDateTime createdAt, CampaignService campaignService) {
+        Assert.hasText(title, "제목이 없습니다.");
+        Assert.hasText(imagePath, "상세 이미지가 없습니다.");
+        Assert.hasText(notice, "유의사항이 없습니다.");
+
         this.startDate = startDate;
         this.endDate = endDate;
         this.title = title;

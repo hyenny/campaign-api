@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -43,6 +44,9 @@ public class Campaign {
 
     @Builder
     public Campaign(String name, String beneficiary, LocalDateTime startDate, LocalDateTime endDate, String bannerImagePath, LocalDateTime createdAt, CampaignAdditionalService campaignAdditionalService) {
+        Assert.hasText(beneficiary, "개설자명이 없습니다.");
+        Assert.hasText(name, "캠페인 이름이 없습니다.");
+
         this.name = name;
         this.beneficiary = beneficiary;
         this.startDate = startDate;
