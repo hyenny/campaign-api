@@ -56,6 +56,9 @@ public class ValueConsumption {
         Assert.hasText(title, "제목이 없습니다.");
         Assert.hasText(imagePath, "상세 이미지가 없습니다.");
         Assert.hasText(notice, "유의사항이 없습니다.");
+        Assert.notNull(startDate, "시작일이 없습니다.");
+        Assert.notNull(startDate, "종료일이 없습니다.");
+        Assert.notNull(campaignService, "캠페인서비스가 없습니다.");
 
         this.startDate = startDate;
         this.endDate = endDate;

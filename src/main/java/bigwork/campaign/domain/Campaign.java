@@ -39,13 +39,15 @@ public class Campaign {
 
     @JsonIgnore
     @JoinColumn(name="additional_service_id")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private CampaignAdditionalService campaignAdditionalService;
 
     @Builder
     public Campaign(String name, String beneficiary, LocalDateTime startDate, LocalDateTime endDate, String bannerImagePath, LocalDateTime createdAt, CampaignAdditionalService campaignAdditionalService) {
         Assert.hasText(beneficiary, "개설자명이 없습니다.");
         Assert.hasText(name, "캠페인 이름이 없습니다.");
+        Assert.notNull(startDate, "시작일이 없습니다.");
+        Assert.notNull(startDate, "종료일이 없습니다.");
 
         this.name = name;
         this.beneficiary = beneficiary;
