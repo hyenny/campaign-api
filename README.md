@@ -17,3 +17,13 @@ docker-compose up -d
 cd project
 docker-compose down
 ```
+## 가치소비 API
+### 등록
+- 화면 : `http://localhost:8080/valueconsumption/form.html`
+- API : `POST` `http://localhost:8080/api/v1/value-consumptions`
+
+### 목록
+- API : `GET` `http://localhost:8080/api/v1/value-consumptions`
+
+### 조회
+- API : `GET` `http://localhost:8080/api/v1/value-consumptions/{id}`
