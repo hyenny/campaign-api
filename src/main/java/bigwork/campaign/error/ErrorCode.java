@@ -6,10 +6,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum ErrorCode {
     // Common
     INVALID_INPUT_VALUE(400, "C001", "유효하지 않은 입력값입니다."),
+    UNEXPECTED_ERROR(500, "C002", ""),
 
     // File
     INVALID_FILE_NAME(400, "F001", "부적합한 파일명입니다."),
-    FAILED_FILE_UPLOAD(500, "F002", "파일 업로드가 실패했습니다.");
+    FAILED_FILE_UPLOAD(500, "F002", "파일 업로드가 실패했습니다."),
+    INVALID_IMAGE_FILE(400, "F003", "이미지 파일이 아닙니다.");
 
     private final int status;
     private final String code;

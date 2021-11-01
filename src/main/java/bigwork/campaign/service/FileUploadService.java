@@ -3,6 +3,7 @@ package bigwork.campaign.service;
 import bigwork.campaign.dto.UploadImagePath;
 import bigwork.campaign.error.ErrorCode;
 import bigwork.campaign.error.exception.FileUploadException;
+import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -22,10 +23,28 @@ public class FileUploadService {
     private String baseDir;
 
     public UploadImagePath uploadImages(MultipartFile banner, MultipartFile detail) {
+        if (!isImageFile(banner) || !isImageFile(detail)) {
+            throw new FileUploadException(ErrorCode.INVALID_IMAGE_FILE);
+        }
+
         String bannerImagePath = store(banner);
         String detailImagePath = store(detail);
 
         return new UploadImagePath(bannerImagePath, detailImagePath);
+    }
+
+    private boolean isImageFile(MultipartFile file) {
+        return getMimeType(file).startsWith("image");
+    }
+
+    private String getMimeType(MultipartFile file) {
+        Tika tika = new Tika();
+        try {
+            return tika.detect(file.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public String store(MultipartFile file) {
