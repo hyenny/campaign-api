@@ -1,7 +1,8 @@
 package bigwork.campaign.service;
 
 import bigwork.campaign.dto.UploadImagePath;
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import bigwork.campaign.error.ErrorCode;
+import bigwork.campaign.error.exception.FileUploadException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -21,26 +22,28 @@ public class FileUploadService {
     private String baseDir;
 
     public UploadImagePath uploadImages(MultipartFile banner, MultipartFile detail) {
-        try {
-            validateFileName(StringUtils.cleanPath(banner.getOriginalFilename()), StringUtils.cleanPath(detail.getOriginalFilename()));
+        String bannerImagePath = store(banner);
+        String detailImagePath = store(detail);
 
-            Path bannerCopy = Paths.get(baseDir + File.separator + getUUIDFilename(banner.getOriginalFilename()));
-            Path detailCopy = Paths.get(baseDir + File.separator + getUUIDFilename(detail.getOriginalFilename()));
-
-            Files.copy(banner.getInputStream(), bannerCopy);
-            Files.copy(detail.getInputStream(), detailCopy);
-
-            return new UploadImagePath(bannerCopy.toString(), detailCopy.toString());
-        } catch (IOException e) {
-            throw new RuntimeException("이미지 업로드가 실패했습니다.");
-        }
+        return new UploadImagePath(bannerImagePath, detailImagePath);
     }
 
-    private void validateFileName(String... originalFilenames) throws FileUploadException {
-        for (String originalFilename : originalFilenames) {
-            if (originalFilename.contains(".."))
-                throw new FileUploadException("파일명에 부적합 문자가 포함되어 있습니다. " + originalFilename);
+    public String store(MultipartFile file) {
+        String originalFilename = file.getOriginalFilename();
+        validateFileName(StringUtils.cleanPath(originalFilename));
+
+        Path targetPath = Paths.get(baseDir + File.separator + getUUIDFilename(originalFilename));
+        try {
+            Files.copy(file.getInputStream(), targetPath);
+        } catch (IOException e) {
+            throw new FileUploadException(ErrorCode.FAILED_FILE_UPLOAD);
         }
+        return targetPath.toString();
+    }
+
+    private void validateFileName(String originalFilename) {
+        if (!StringUtils.hasText(originalFilename) || originalFilename.contains(".."))
+            throw new FileUploadException(ErrorCode.INVALID_FILE_NAME);
     }
 
     private String getUUIDFilename(String originalFilename) {
