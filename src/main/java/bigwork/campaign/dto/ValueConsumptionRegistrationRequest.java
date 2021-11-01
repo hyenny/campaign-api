@@ -37,11 +37,11 @@ public class ValueConsumptionRegistrationRequest {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime endDate;
 
-    @NotBlank(message = "[상세이미지]을 입력해 주세요")
-    private String detailImagePath;
+    @NotNull(message = "[상세이미지]을 입력해 주세요")
+    private MultipartFile detailImage;
 
-    @NotBlank(message = "[배너이미지]을 입력해 주세요")
-    private String bannerImagePath;
+    @NotNull(message = "[배너이미지]을 입력해 주세요")
+    private MultipartFile bannerImage;
 
     private String purchaseUrl;
 
