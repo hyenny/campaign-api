@@ -1,11 +1,15 @@
 package bigwork.campaign.dto;
 
-import bigwork.campaign.domain.*;
+import bigwork.campaign.domain.Campaign;
+import bigwork.campaign.domain.CampaignAdditionalService;
+import bigwork.campaign.domain.CampaignService;
+import bigwork.campaign.domain.ValueConsumption;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -15,7 +19,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
-public class ValueConsumptionCreateRequest {
+public class ValueConsumptionRegistrationRequest {
 
     @Size(max=13)
     @NotBlank(message = "[제목]을 입력해 주세요")
@@ -49,32 +53,28 @@ public class ValueConsumptionCreateRequest {
     @Size(max=200)
     private String howToPractice;
 
-    private static CampaignService createCampaignService() {
-        return new CampaignService(CampaignType.VALUE_CONSUMPTION);
-    }
-
-    public Campaign toEntityCampaign() {
+    public Campaign toEntityCampaign(CampaignAdditionalService campaignAdditionalService, String bannerImagePath) {
         return Campaign.builder()
                 .name(this.title + " 가치소비")
                 .beneficiary(this.beneficiary)
                 .startDate(this.startDate)
                 .endDate(this.endDate)
-                .bannerImagePath(this.bannerImagePath)
-                .campaignAdditionalService(new CampaignAdditionalService(createCampaignService()))
+                .bannerImagePath(bannerImagePath)
+                .campaignAdditionalService(campaignAdditionalService)
                 .build();
     }
 
-    public ValueConsumption toEntityValueConsumption() {
+    public ValueConsumption toEntityValueConsumption(CampaignService campaignService, String detailImagePath) {
         return ValueConsumption.builder()
                 .title(this.title)
                 .notice(this.notice)
                 .howToPractice(this.howToPractice)
                 .reward(this.reward)
                 .purchaseUrl(this.purchaseUrl)
-                .imagePath(this.detailImagePath)
+                .imagePath(detailImagePath)
                 .startDate(this.startDate)
                 .endDate(this.endDate)
-                .campaignService(createCampaignService())
+                .campaignService(campaignService)
                 .build();
     }
 

@@ -9,18 +9,18 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ValueConsumptionCreateResponse {
+public class ValueConsumptionRegistrationResponse {
     private Campaign campaign;
     private ValueConsumption valueConsumption;
 
     @Builder
-    public ValueConsumptionCreateResponse(Campaign campaign, ValueConsumption valueConsumption) {
+    public ValueConsumptionRegistrationResponse(Campaign campaign, ValueConsumption valueConsumption) {
         this.campaign = campaign;
         this.valueConsumption = valueConsumption;
     }
 
-    public static ValueConsumptionCreateResponse of(Campaign campaign, ValueConsumption valueConsumption) {
-        return new ValueConsumptionCreateResponse(campaign, valueConsumption);
+    public static ValueConsumptionRegistrationResponse of(Campaign campaign, ValueConsumption valueConsumption) {
+        return new ValueConsumptionRegistrationResponse(campaign, valueConsumption);
     }
 
 }
