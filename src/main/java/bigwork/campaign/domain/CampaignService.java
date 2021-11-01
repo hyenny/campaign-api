@@ -1,6 +1,5 @@
 package bigwork.campaign.domain;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Table(name = "campaign_service")
 @Entity
 public class CampaignService {
@@ -16,7 +15,7 @@ public class CampaignService {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="type", length = 20)
+    @Column(name = "type", length = 20, nullable = false, unique = true)
     @Enumerated(EnumType.STRING)
     private CampaignType type;
 
