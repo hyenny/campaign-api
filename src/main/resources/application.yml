@@ -8,7 +8,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    defer-datasource-initialization: true
 
   datasource:
     url: jdbc:mysql://localhost:3366/bigwork?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
