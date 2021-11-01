@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가치소비 캠페인 등록</title> <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            background: #4ccddd;
+        }
+        .input-form {
+            max-width: 680px;
+            margin-top: 80px;
+            padding: 32px;
+            background: #fff;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="input-form-backgroud row">
+        <div class="input-form col-md-12 mx-auto">
+            <form enctype="multipart/form-data" class="validation-form" action="/api/v1/value-consumptions" method="post" novalidate>
+                <h4 class="mb-3">가치소비 기본정보</h4>
+                <div class="mb-3">
+                    <label for="title">가치소비 캠페인 제목</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="내용을 입력해주세요." aria-describedby="helpBlock" required>
+                    <div class="invalid-feedback"> [제목]을 입력해 주세요.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="beneficiary">개설자</label>
+                    <input type="text" class="form-control" id="beneficiary" name="beneficiary" placeholder="내용을 입력해주세요." required>
+                    <div class="invalid-feedback"> [개설자]를 입력해 주세요.</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="startDate">시작일</label>
+                        <input type="datetime-local" class="form-control" id="startDate" name="startDate" placeholder="YYYY.MM.DD hh:mm:ss" required>
+                        <div class="invalid-feedback"> [시작일]를 입력해 주세요.</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="endDate">종료일</label>
+                        <input type="datetime-local" class="form-control" id="endDate" name="endDate" placeholder="YYYY.MM.DD hh:mm:ss" required>
+                        <div class="invalid-feedback"> [종료일]를 입력해 주세요.</div>
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <h4 class="mb-3">가치소비 상세 입력 항목</h4>
+                <div class="mb-3">
+                    <label for="bannerImage">배너 이미지 업로드</label>
+                    <input type="file" class="form-control" id="bannerImage" name="bannerImage" accept="image/png, image/jpeg" placeholder="선택한 파일 없음" required>
+                    <div class="invalid-feedback"> [배너 이미지 업로드]를 입력해 주세요.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="detailImage">상세 이미지 업로드</label>
+                    <input type="file" class="form-control" id="detailImage" name="detailImage" accept="image/png, image/jpeg" placeholder="선택한 파일 없음" required>
+                    <div class="invalid-feedback"> [상세 이미지 업로드]를 입력해 주세요.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="purchaseUrl">구매 사이트</label>
+                    <input type="text" class="form-control" id="purchaseUrl" name="purchaseUrl" placeholder="URL을 입력해 주세요" >
+                </div>
+                <div class="mb-3">
+                    <label for="reward">쿠폰 번호</label>
+                    <input type="text" class="form-control" id="reward" name="reward" placeholder="내용을 입력해주세요." >
+                </div>
+                <div class="mb-3">
+                    <label for="notice">유의사항</label>
+                    <textarea class="form-control" rows="3" id="notice" name="notice" placeholder="최대 200자(공백 포함)"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="howToPractice">참여방법</label>
+                    <textarea class="form-control" rows="3" id="howToPractice" name="howToPractice" placeholder="최대 200자(공백 포함)"></textarea>
+                </div>
+                <hr class="mb-4">
+                <div class="mb-4"></div>
+                <div class="row">
+                    <button class="btn btn-primary btn-lg" type="submit">등록</button>
+                    <button class="btn btn-default btn-lg" type="button">취소</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer class="my-3 text-center text-small"><p class="mb-1">&copy; bigwalk</p></footer>
+</div>
+<script>
+    window.addEventListener('load', () => {
+        const forms = document.getElementsByClassName('validation-form');
+        Array.prototype.filter.call(forms, (form) => {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false); </script>
+</body>
+</html>
