@@ -33,4 +33,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
+    /**
+     * 부적절한 아규먼트 or 상태 에러
+     */
+    @ExceptionHandler({IllegalArgumentException.class, IllegalStateException.class})
+    protected ResponseEntity<ErrorResponse> handleInvalidException(Exception e) {
+        log.error("handleInvalidException", e);
+        ErrorResponse response = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }
