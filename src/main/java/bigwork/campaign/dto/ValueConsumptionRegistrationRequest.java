@@ -30,11 +30,11 @@ public class ValueConsumptionRegistrationRequest {
     private String beneficiary;
 
     @NotNull(message = "[시작일]을 입력해 주세요")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime startDate;
 
     @NotNull(message = "[종료일]을 입력해 주세요")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime endDate;
 
     @NotNull(message = "[상세이미지]을 입력해 주세요")
