@@ -15,9 +15,12 @@ spring:
     username: root
     password: secret
     driver-class-name: com.mysql.cj.jdbc.Driver
-  sql:
-    init:
-      mode: always
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+
 logging:
   level:
     org.hibernate.SQL: debug
